@@ -1,98 +1,161 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<title>Register</title>
+  <meta charset="UTF-8">
+  <title>Our Sammamish – Sign Up</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Libre+Baskerville&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;800&family=Libre+Baskerville&display=swap" rel="stylesheet">
 
-<style>
-* { box-sizing: border-box; margin:0; padding:0; font-family: 'Libre Baskerville', serif; }
+  <!-- Supabase v2 CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-body {
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #f4f4f4;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Libre Baskerville', serif;
+    }
 
-.box {
-  background: white;
-  padding: 40px;
-  width: 360px;
-  border-radius: 12px;
-  text-align: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f4f4f4;
+    }
 
-h1 {
-  font-family: 'Playfair Display', serif;
-  margin-bottom: 20px;
-}
+    .container {
+      background: #fff;
+      padding: 40px 50px;
+      border-radius: 12px;
+      width: 360px;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.2);
+    }
 
-input {
-  width: 100%;
-  padding: 12px;
-  margin-bottom: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-}
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px;
+      margin-bottom: 15px;
+    }
 
-button {
-  width: 100%;
-  padding: 12px;
-  background: #222;
-  color: white;
-  border: none;
-  border-radius: 8px;
-}
+    p {
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 25px;
+    }
 
-.error { color: red; margin-bottom: 10px; }
-</style>
+    input {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 18px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 14px;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: #222;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #444;
+    }
+
+    .footer {
+      margin-top: 18px;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #222;
+      text-decoration: none;
+    }
+
+    .footer a:hover {
+      text-decoration: underline;
+    }
+
+    .error {
+      color: red;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+
+    .success {
+      color: green;
+      font-size: 14px;
+      margin-bottom: 15px;
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="box">
-  <h1>Create Account</h1>
+  <div class="container">
+    <h1>Create Account</h1>
+    <p>Join Our Sammamish as a reporter or reviewer</p>
 
-  <div class="error" id="error"></div>
+    <div id="message"></div>
 
-  <form id="register-form">
-    <input id="email" type="email" placeholder="Email" required>
-    <input id="password" type="password" placeholder="Password" required>
-    <button type="submit">Sign Up</button>
-  </form>
-</div>
+    <form id="signup-form">
+      <input id="email" type="email" placeholder="Email" required>
+      <input id="password" type="password" placeholder="Password (min 6 chars)" required>
+      <button type="submit">Sign Up</button>
+    </form>
 
-<script>
-const client = supabase.createClient(
-  "https://xihkelhdudbtcxmtfxjc.supabase.co",
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaGtlbGhkdWRidGN4bXRmeGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDE4NTYsImV4cCI6MjA4Mjg3Nzg1Nn0.ymKlKpEfpIWmQc0SbZ3_EOrepyd9PLkCF8xgSEswSKQ
-"
-);
+    <div class="footer">
+      <p>Already have an account? <a href="login.html">Log in</a></p>
+    </div>
+  </div>
 
-document.getElementById("register-form").addEventListener("submit", async (e) => {
-  e.preventDefault();
+  <script>
+    // Supabase config (DO NOT EDIT)
+    const SUPABASE_URL = "https://xihkelhdudbtcxmtfxjc.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaGtlbGhkdWRidGN4bXRmeGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDE4NTYsImV4cCI6MjA4Mjg3Nzg1Nn0.ymKlKpEfpIWmQc0SbZ3_EOrepyd9PLkCF8xgSEswSKQ";
 
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
-  const errorBox = document.getElementById("error");
+    const supabase = supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
 
-  errorBox.textContent = "";
+    const form = document.getElementById("signup-form");
+    const messageDiv = document.getElementById("message");
 
-  const { error } = await client.auth.signUp({ email, password });
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault(); // ← CRITICAL (prevents page refresh)
 
-  if (error) {
-    errorBox.textContent = error.message;
-  } else {
-    alert("Check your email to confirm your account.");
-    window.location.href = "login.html";
-  }
-});
-</script>
+      messageDiv.textContent = "";
+
+      const email = document.getElementById("email").value;
+      const password = document.getElementById("password").value;
+
+      const { error } = await supabase.auth.signUp({
+        email: email,
+        password: password
+      });
+
+      if (error) {
+        messageDiv.innerHTML = `<div class="error">${error.message}</div>`;
+        return;
+      }
+
+      messageDiv.innerHTML =
+        `<div class="success">
+          Account created! Check your email to confirm, then log in.
+        </div>`;
+
+      form.reset();
+    });
+  </script>
 
 </body>
 </html>

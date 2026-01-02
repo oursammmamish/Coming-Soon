@@ -8,7 +8,12 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-* { box-sizing: border-box; margin:0; padding:0; font-family: 'Libre Baskerville', serif; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Libre Baskerville', serif;
+}
 
 body {
   height: 100vh;
@@ -31,9 +36,14 @@ h1 {
   font-family: 'Playfair Display', serif;
   font-size: 32px;
   margin-bottom: 20px;
+  color: #222;
 }
 
-p { font-size: 14px; margin-bottom: 25px; }
+p {
+  font-size: 14px;
+  margin-bottom: 25px;
+  color: #555;
+}
 
 input {
   width: 100%;
@@ -41,6 +51,7 @@ input {
   margin-bottom: 18px;
   border-radius: 8px;
   border: 1px solid #ccc;
+  font-size: 14px;
 }
 
 button {
@@ -50,19 +61,33 @@ button {
   color: white;
   border: none;
   border-radius: 8px;
+  font-size: 16px;
   cursor: pointer;
 }
 
-button:hover { background: #444; }
+button:hover {
+  background: #444;
+}
 
-.error { color: red; margin-bottom: 12px; }
+.error {
+  color: red;
+  margin-bottom: 15px;
+  font-size: 14px;
+}
 
 .footer {
   margin-top: 18px;
   font-size: 12px;
 }
-.footer a { color: #222; text-decoration: none; }
-.footer a:hover { text-decoration: underline; }
+
+.footer a {
+  color: #222;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}
 </style>
 </head>
 
@@ -86,28 +111,38 @@ button:hover { background: #444; }
 </div>
 
 <script>
-const SUPABASE_URL = "https://xihkelhdudbtcxmtfxjc.supabase.co";
-const SUPABASE_KEY = "PeyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaGtlbGhkdWRidGN4bXRmeGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDE4NTYsImV4cCI6MjA4Mjg3Nzg1Nn0.ymKlKpEfpIWmQc0SbZ3_EOrepyd9PLkCF8xgSEswSKQ
-";
+/* ================= SUPABASE SETUP ================= */
 
-const client = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+const SUPABASE_URL = "https://xihkelhdudbtcxmtfxjc.supabase.co";
+const SUPABASE_KEY =
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaGtlbGhkdWRidGN4bXRmeGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDE4NTYsImV4cCI6MjA4Mjg3Nzg1Nn0.ymKlKpEfpIWmQc0SbZ3_EOrepyd9PLkCF8xgSEswSKQ";
+
+const { createClient } = window.supabase;
+const client = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+/* ================= LOGIN LOGIC ================= */
 
 document.getElementById("login-form").addEventListener("submit", async (e) => {
   e.preventDefault();
 
-  const email = document.getElementById("email").value;
+  const email = document.getElementById("email").value.trim();
   const password = document.getElementById("password").value;
   const errorBox = document.getElementById("error");
 
   errorBox.textContent = "";
 
-  const { error } = await client.auth.signInWithPassword({ email, password });
+  const { error } = await client.auth.signInWithPassword({
+    email,
+    password
+  });
 
   if (error) {
     errorBox.textContent = error.message;
-  } else {
-    window.location.href = "dashboard.html";
+    return;
   }
+
+  // SUCCESS
+  window.location.href = "dashboard.html";
 });
 </script>
 

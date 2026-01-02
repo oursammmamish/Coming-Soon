@@ -12,7 +12,7 @@
 <script>
 const client = supabase.createClient(
   "https://xihkelhdudbtcxmtfxjc.supabase.co",
-  "PASTE_YOUR_ANON_KEY_HERE"
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhpaGtlbGhkdWRidGN4bXRmeGpjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjczMDE4NTYsImV4cCI6MjA4Mjg3Nzg1Nn0.ymKlKpEfpIWmQc0SbZ3_EOrepyd9PLkCF8xgSEswSKQ"
 );
 
 client.auth.getSession().then(({ data }) => {
